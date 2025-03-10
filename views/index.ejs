@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grand Prix 25 - Current Standings</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: rgb(30, 30, 33);
+        color: #ffffff;
+      }
+      .container {
+        margin-top: 20px;
+        max-width: 1400px; /* Wider container */
+      }
+      table {
+        width: 100%;
+        background-color: rgb(30, 30, 32);
+        border-collapse: collapse; /* Ensures borders are shared between cells */
+      }
+      th,
+      td {
+        color: #ffffff !important;
+        border-right: 1px solid #555555; /* Vertical divider color */
+        padding: 8px;
+        font-size: 14px; /* Smaller font size */
+      }
+      th:last-child,
+      td:last-child {
+        border-right: none; /* Remove border from the last column */
+      }
+      tr {
+        background-color: rgb(30, 30, 32); /* Uniform row color */
+      }
+      tr:hover {
+        background-color: rgb(39, 39, 42); /* Row color on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">Grand Prix 25 - Current Standings</h1>
+      <table class="table table-dark mt-3">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Handle (Name)</th>
+            <th>Total</th>
+            <% contests.forEach(function(contest) { %>
+            <th><%= contest.name %></th>
+            <% }); %>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(function(user, index) { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td>
+              <% var color = "rgb(127,127,127)"; if (user.rating >= 1200 &&
+              user.rating < 1400) { color = "rgb(72,127,30)"; } else if
+              (user.rating >= 1400 && user.rating < 1600) { color =
+              "rgb(144,255,255)"; } else if (user.rating >= 1600 && user.rating
+              < 1900) { color = "rgb(75,96,250)"; } %>
+              <a
+                href="https://codeforces.com/profile/<%= user.handle %>"
+                target="_blank"
+                style="color: <%= color %>"
+              >
+                <strong><%= user.handle %></strong>
+              </a>
+              (<%= user.name %>)
+            </td>
+            <td><%= user.total.toFixed(2) %></td>
+            <% user.contests.forEach(function(score) { %>
+            <td><%= score %></td>
+            <% }); %>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
