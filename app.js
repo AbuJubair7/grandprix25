@@ -266,6 +266,12 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+if (require.main === module) {
+  // Only start the server if this file is executed directly
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}
+
+// Export the Express app for Vercel's serverless function
+module.exports = app;
