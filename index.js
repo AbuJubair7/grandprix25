@@ -20,7 +20,7 @@ const handles = [
   "_kuhaku",
   "Zids",
   "mdnrkn",
-  "Asaduzzaman",
+  "_Asaduzzaman_",
   "tanjill",
   "Tasin_t",
   "mehedi-hasan02",
