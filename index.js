@@ -34,7 +34,7 @@ const handles = [
   "one_above_all7",
   "tanvir50198",
   "Swajan_",
-  "Berlin",
+  "_Berlin_",
   "OnukromR",
   "mahir_d_",
   "AR_ratul",
