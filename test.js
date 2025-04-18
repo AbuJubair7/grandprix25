@@ -1,53 +1,103 @@
 // Static list of Codeforces handles
 const handles = [
+  "hasnatzadid13",
+  "Ether",
+  "List_mist25",
+  "tanjill",
+  "HA_BI_BI",
+  "soyad96",
+  "Zids",
+  "Razoana",
+  "Suzit_Datta",
+  "Rifatt",
+  "mdnrkn",
+  "Shekarmanulhoque",
+  "Zubayeer_alam",
+  "mr_warlock",
+  "kingfisher-2",
+  "TISHAD07",
+  "_Asaduzzaman_",
+  "afsanabid.anik",
+  "mahir_d_",
   "Faysal_Chowdhury",
   "Xbir",
-  "tanvirtasin",
-  "Siyam_Talukder",
-  "Ether",
+  "FaisalMahi",
+  "Estiyak_Rubaiat",
+  "__SADMAN__",
   "jubair7",
-  "mr_warlock",
-  "Reaper08",
-  "Miaow",
   "Mahjabin7",
-  "Kazi_Irfan",
-  "Abir_Hamza",
-  "Azhar07",
-  "mdNishad_001",
-  "HA_BI_BI",
-  "tanjill",
-  "mahdiuzzamannishat",
-  "kingfisher-2",
-  "Suzit_Datta",
-  "_Berlin_",
-  "_kuhaku",
-  "Zids",
-  "mdnrkn",
-  "_Asaduzzaman_",
+  "roy420",
+  "mrxvaau",
+  "arghodey",
   "J_A_Jishan",
-  "_Tanjid_",
-  "mehedi-hasan02",
-  "mahir_d_",
-  "LONEWOLF09",
-  "Tasin_t",
-  "mhTipu",
-  "falcon83",
+  "crux15",
   "NILADRI-18",
+  "jafirislam10",
+  "_kuhaku",
   "Swajan_",
-  "fahadhasan",
-  "Meraki_",
-  "Al__Ehsan",
-  "one_above_all7",
+  "arghodatta",
   "Arnobakd",
-  "tanvir50198",
-  "AR_ratul",
-  "OnukromR",
-  "Kiyas-Mahmud",
-  "Razoana",
+  "sadatishraq",
+  "Azhar07",
+  "_Berlin_",
+  "Siyam_Talukder",
+  "Miaow",
+  "PhantomX",
+  "omar_saif",
+  "Kazi_Irfan",
+  "_Tanjid_",
+  "Thrash",
+  "LONEWOLF09",
+  "Abir_Hamza",
   "S0MS0MM1dA",
+  "falcon83",
+  "tanvirtasin",
+  "OnukromR",
+  "Wahiduzzaman_Nejhum",
+  "Tasin_t",
+  "mehedi-hasan02",
+  "mdNishad_001",
+  "NIGHT_FURY_sbr",
+  "LIGHT_FURY_bkm",
+  "Tahsin5586",
+  "_Apon",
+  "Relbai",
+  "Rk899",
+  "TonmoySarkar",
+  "Alfa.",
+  "SadmanOverFlow",
+  "tanvir50198",
+  "Torikul_Roman",
+  "Tanvir___Ahmed",
+  "Reaper08",
   "Zero_Tw2",
+  "fahadhasan",
+  "_tanim",
+  "sahedbatman",
+  "Al__Ehsan",
+  "ameya_",
+  "rafishaidul",
+  "Meraki_",
+  "Kiyas-Mahmud",
+  "MoZAhid",
+  "Athrix_Rahul",
+  "mahdiuzzamannishat",
+  "Trifecta",
+  "ayanhalder2705",
+  "one_above_all7",
+  "anas678",
+  "jojo33",
+  "liteonnehi",
+  "AR_ratul",
   "Aursyine_",
+  "procastinator24",
+  "w4rdaddy",
+  "Sharmin_Sultana",
+  "Nayem_Siddiki",
+  "mhTipu",
+  "tawhid_12",
 ];
+
 /* --- Helper Functions --- */
 
 // Returns contest points based on the local rank.
@@ -180,8 +230,15 @@ function getContests() {
   // 2. Get contest list.
   const contests = await getContests();
 
+  // counter to testing manually for given contests
+  let counter = 6;
+  let rcontests = contests.reverse(); // Reverse the order to process from oldest to newest.
+
   // 3. For each contest, fetch standings and compute contest points.
-  for (const contest of contests) {
+  for (const contest of rcontests) {
+    if (counter <= 0) break;
+    // Limit the number of contests to process for testing.
+    counter--;
     const handlesParam = handles.join(";");
     const url = `https://codeforces.com/api/contest.standings?contestId=${contest.id}&handles=${handlesParam}`;
     try {
@@ -262,21 +319,21 @@ function getContests() {
 function renderTable(users, contests) {
   const container = document.getElementById("table-container");
   let html = `<table class="table table-dark mt-3">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Handle (Name)</th>
-          <th>Total</th>`;
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Handle (Name)</th>
+            <th>Total</th>`;
   contests.forEach((contest) => {
     html += `<th>${contest.name}</th>`;
   });
   html += `</tr>
-      </thead>
-      <tbody>`;
+        </thead>
+        <tbody>`;
   users.forEach((user, index) => {
     html += `<tr>
-        <td>${index + 1}</td>
-        <td>`;
+          <td>${index + 1}</td>
+          <td>`;
     // Set handle color based on rating.
     let color = "rgb(127,127,127)";
     if (user.rating >= 1200 && user.rating < 1400) color = "rgb(72,127,30)";
@@ -289,8 +346,8 @@ function renderTable(users, contests) {
     }" target="_blank" style="color:${color}"><strong>${
       user.handle
     }</strong></a> (${user.name})
-        </td>
-        <td>${user.total.toFixed(2)}</td>`;
+          </td>
+          <td>${user.total.toFixed(2)}</td>`;
     user.contests.forEach((score) => {
       html += `<td>${score}</td>`;
     });
